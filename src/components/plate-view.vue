@@ -4,7 +4,7 @@
             <div class="fh5co-item animate-box">
                 <div style="position:relative;">
                     <a href="/ar.html?model=asset&scale=11"><img :src="item.image" class="fixed-height "
-                                                                 :alt="item.alt"></a>
+                                                                  :alt="item.alt"></a>
                     <a href="/ar.html?model=asset&scale=11">
                         <button type="button" class="btn btn-primary ar-icon"><i
                                 class="fa-solid fa-vr-cardboard  fa-xl "></i></button>
