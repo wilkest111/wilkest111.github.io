@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
+    <!-- <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script> -->
+    <!-- <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script> -->
+
+     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .footer-button {
+            position: fixed;
+            left: 0px;
+            bottom: 20px;
+            width: 100%;
+            color: white;
+            text-align: center;
+            z-index: 8000;
+        }
+
+        .change-camera {
+            position: fixed;
+            left: 200px;
+            bottom: 20px;
+            width: 100%;
+            color: white;
+            text-align: center;
+            z-index: 9999;
+        }
+    </style>
+
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+<h1 id="camaras" style="color: white">camaras:</h1>
+<a-scene id="#arscene" vr-mode-ui="enabled: false;" loading-screen="enabled: false;" renderer="logarithmicDepthBuffer: true;" arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;" id="scene" embedded gesture-detector>
+    <a-assets>
+        <a-asset-item id="animated-asset" src="assets/burger.glb"></a-asset-item>
+        <a-asset-item id="animated-asset2" src="assets/asset.glb"></a-asset-item>
+    </a-assets>
+
+    <a-marker id="animated-marker" type="pattern" preset="custom" url="assets/marker.patt" raycaster="objects: .clickable" emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
+        <!-- <a-entity id="bowser-model" scale="11 11 11" animation-mixer="loop: repeat" gltf-model="#animated-asset2" class="clickable" gesture-handler></a-entity> -->
+        <!-- <a-entity id="bowser-model" scale="11 11 11" animation-mixer="loop: repeat" gltf-model="assets/asset.glb" class="clickable" gesture-handler></a-entity> -->
+    </a-marker>
+
+    <a-entity camera></a-entity>
+    <!-- <a-entity  htmlembed>
+
+         <div id="profile" style="color: greenyellow; width: 300px; height: 300px; background-color: red; position: absolute; top: 150px; left: 0px;">
+<button type="button" onclick="changeModel">Click to change </button>
+        </div>
+
+        </a-entity> -->
+</a-scene>
+
+<!-- <div id="sceneContainer"></div>-->
+<div class="change-camera">
+    <button type="button" id="botton-cambiar-camara" class="btn btn-primary" onclick="changeCamera()">Change camera</button>
+</div>
+<!-- <div id="footer-button" class="footer-button">
+    <a href="/menu.html"><button type="button" class="btn btn-primary">Close AR V4</button></a>
+</div> -->
+
+<script>
+    // $("#botton-cambiar-camara").click(function() {
+    //     console.log("cambia texto");
+
+    //     let titulo = document.getElementById('camaras');
+    //     titulo.textContent = 'cambiadno';
+    // });
+    navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            var cameras = devices.filter(function(device) {
+                return device.kind === 'videoinput';
+            });
+            console.log(cameras);
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+
+
+    function changeCamera() {
+
+        console.log("cambia texto");
+
+        navigator.mediaDevices.enumerateDevices()
+            .then(function(devices) {
+                var cameras = devices.filter(function(device) {
+                    return device.kind === 'videoinput';
+                });
+                let titulo = document.getElementById('camaras');
+                titulo.textContent = 'cambiadno';
+                console.log(cameras);
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
+
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const modelName = "assets/" + urlParams.get('model') + ".glb";
+    const scale = urlParams.get('scale');
+
+    console.log(modelName + " " + scale)
+    var scene = document.querySelector('a-scene');
+
+    // if (scene.hasLoaded) {
+    //     run();
+    //     addEntity();
+    // } else {
+    //     scene.addEventListener('loaded', run);
+    // }
+
+
+    // function addEntity() {
+    //     // Create a new A-Frame entit y e  lement
+    //     var myEntity = document.createElement('a-box');
+
+    //     // Set the position and rotation of the entity
+    //     myEntity.setAttribute('position', '0 0 -10');
+    //     myEntity.setAttribute('rotation', '0 45 45');
+    //     myEntity.setAttribute('scale', '1 1 1');
+
+    //     // Add the entity to the AR.js scene
+    //     var scene = document.querySelector('a-scene');
+    //     scene.appendChild(myEntity);
+    // }
+
+
+    function addModel(modelName, scale) {
+        // Create a new A-Frame entit y e  lement
+        var myEntity = document.createElement('a-entity');
+
+        // Set the position and rotation of the entity
+        // myEntity.setAttribute('position', '0 0 -10');
+        myEntity.setAttribute('rotation', '0 0 0');
+        myEntity.setAttribute('scale', scale + " " + scale + " " + scale);
+        // myEntity.setAttribute('gltf-model', '#animated-asset');
+        myEntity.setAttribute('gltf-model', modelName);
+
+
+        // Add the entity to the AR.js scene
+        var scene = document.querySelector('a-marker');
+        scene.appendChild(myEntity);
+    }
+    // addModel("assets/asset.glb", 11)
+    addModel(modelName, scale)
+
+
+
+
+    // function addModel() {
+    //     // Create a new A-Frame entit y e  lement
+    //     var myEntity = document.createElement('a-entity');
+
+    //     // Set the position and rotation of the entity
+    //     myEntity.setAttribute('position', '0 0 -10');
+    //     myEntity.setAttribute('rotation', '0 45 45');
+    //     myEntity.setAttribute('scale', '1 1 1');
+    //     // myEntity.setAttribute('gltf-model', '#animated-asset');
+    //     myEntity.setAttribute('gltf-model', 'assets/asset.glb');
+
+
+    //     // Add the entity to the AR.js scene
+    //     var scene = document.querySelector('a-scene');
+    //     scene.appendChild(myEntity);
+    // }
+</script>
+
+<!-- <script src="js/main.js"></script> -->
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
