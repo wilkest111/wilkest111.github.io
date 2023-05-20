@@ -7,7 +7,7 @@
                                                                   :alt="item.alt"></a>
                     <a href="/ar.html?model=asset&scale=11">
                         <button type="button" class="btn btn-primary ar-icon"><i
-                                class="fa-solid fa-vr-cardboard  fa-xl "></i></button>
+                                 class="fa-solid fa-vr-cardboard  fa-xl "></i></button>
                     </a>
                 </div>
 
