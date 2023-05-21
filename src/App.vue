@@ -49,9 +49,22 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 fh5co-heading animate-box mb-9">
-                            <h2>Main dishes</h2>
+                            <h2>Main</h2>
                         </div>
-                        <PlateItem v-for="(plate, idx) in company.plates" :key="idx" :item="plate" ></PlateItem>
+                        <PlateItem v-for="(plate, idx) in company.plates.filter(item=>item.type==DishType.Main)" :key="idx" :item="plate" ></PlateItem>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 fh5co-heading animate-box mb-9">
+                            <h2>Drinks</h2>
+                        </div>
+                        <PlateItem v-for="(plate, idx) in company.plates.filter(item=>item.type==DishType.Drinks)" :key="idx" :item="plate" ></PlateItem>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 fh5co-heading animate-box mb-9">
+                            <h2>Desserts</h2>
+                        </div>
+                        <PlateItem v-for="(plate, idx) in company.plates.filter(item=>item.type==DishType.Dessert)" :key="idx" :item="plate" ></PlateItem>
                     </div>
                 </div>
             </div>
@@ -159,7 +172,6 @@
 <script>
 import PlateItem from "@/components/plate-view.vue";
 
-
 export default {
     name: 'App',
     components: {
@@ -167,6 +179,7 @@ export default {
     },
     data() {
         return {
+            DishType,
             company: defaultCompany()
         }
     },
@@ -187,6 +200,12 @@ export default {
     }
 }
 
+export const DishType = {
+    Main: "MAIN",
+    Dessert: "DESSERT",
+    Drinks: "DRINKS",
+}
+
 function defaultPlates() {
     return [
         {
@@ -194,28 +213,72 @@ function defaultPlates() {
             image: "images/pizza.jpeg",
             title: 'Margarita',
             subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
-            model3D: '',
+            type: DishType.Main,
+            model3D: 'asset',
+            scale: '11',
         },
         {
             id: 2,
             image: 'burger.png',
             title: 'Max burger',
             subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
-            model3D: '',
+            type: DishType.Main,
+            model3D: 'asset',
+            scale: '11',
         },
         {
             id: 3,
             image: 'burger.png',
             title: 'Max burger',
             subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
-            model3D: '',
+            type: DishType.Main,
+            model3D: 'asset',
+            scale: '11',
         },
         {
             id: 4,
             image: 'beer.png',
             title: 'Beer',
             subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
-            model3D: '',
+            type: DishType.Drinks,
+            model3D: 'asset',
+            scale: '11',
+        },
+        {
+            id: 5,
+            image: 'beer.png',
+            title: 'Beer',
+            subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
+            type: DishType.Drinks,
+            model3D: 'asset',
+            scale: '11',
+        },
+        {
+            id: 6,
+            image: 'beer.png',
+            title: 'Beer',
+            subtitle: 'Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza',
+            type: DishType.Drinks,
+            model3D: 'asset',
+            scale: '11',
+        },
+        {
+            id: 7,
+            image: 'cake.png',
+            title: 'Chocolate Cake',
+            subtitle: 'Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake',
+            type:DishType.Dessert,
+            model3D: 'asset',
+            scale: '11',
+        },
+        {
+            id: 8,
+            image: 'assets/cupcake.png',
+            title: 'Cupcake Cake',
+            subtitle: 'Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake. Deliciuos chocolate cake',
+            type:DishType.Dessert,
+            model3D: 'cupcake',
+            scale: '11',
         }
     ]
 }

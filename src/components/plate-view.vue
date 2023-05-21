@@ -3,11 +3,11 @@
         <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-item-wrap">
             <div class="fh5co-item animate-box">
                 <div style="position:relative;">
-                    <a href="/ar.html?model=asset&scale=11"><img :src="item.image" class="fixed-height "
-                                                                  :alt="item.alt"></a>
-                    <a href="/ar.html?model=asset&scale=11">
+                    <a :href="this.url"><img :src="item.image" class="fixed-height "
+                                                                 :alt="item.alt"></a>
+                    <a :href="this.url">
                         <button type="button" class="btn btn-primary ar-icon"><i
-                                 class="fa-solid fa-vr-cardboard  fa-xl "></i></button>
+                                class="fa-solid fa-vr-cardboard  fa-xl "></i></button>
                     </a>
                 </div>
 
@@ -39,7 +39,14 @@ export default {
                 title: "Margarita",
                 subtitle: "Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza. Deliciuos margarita pizza",
                 price: "20.50",
+                model3D: "asset",
+                scale: 1,
             }
+        },
+    },
+    computed: {
+        url() {
+            return "/ar.html?model="+this.item.model3D+"&"+"scale="+this.item.scale;
         },
     },
     data() {
@@ -82,7 +89,8 @@ export default {
     min-width: 100%;
     max-width: 100%;
 }
-.title{
+
+.title {
     font-size: 35px;
 }
 </style>
